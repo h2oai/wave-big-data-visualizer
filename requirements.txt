@@ -1,0 +1,6 @@
+h2o_wave==0.17.0
+pandas
+h2o
+
+isort
+black

@@ -1,0 +1,4 @@
+venv/
+wave/
+.idea/
+src/__pycache__/
