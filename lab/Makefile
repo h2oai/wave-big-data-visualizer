@@ -1,10 +1,13 @@
-
 all: build
+
+WBDV_VERSION = tomk-lab
 
 wave-big-data-visualizer:
 	(mkdir tmp.clone && \
 	 cd tmp.clone && \
-	 git clone https://github.com/h2oai/wave-big-data-visualizer)
+	 git clone https://github.com/h2oai/wave-big-data-visualizer && \
+	 cd wave-big-data-visualizer && \
+	 git checkout $(WBDV_VERSION))
 	cp -rp tmp.clone/wave-big-data-visualizer .
 	rm -rf tmp.clone
 
