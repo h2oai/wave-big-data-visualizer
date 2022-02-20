@@ -1,7 +1,7 @@
 .PHONY: all
 all: ami
 
-WBDV_VERSION = wave-aquarium-lab
+WBDV_VERSION = tomk-lab
 
 wave-big-data-visualizer:
 	(mkdir tmp.clone && \
@@ -34,6 +34,7 @@ ami: wave-aquarium-lab.tar.gz
 .PHONY: clean
 clean:
 	-docker rmi wave-aquarium-lab
+	rm -rf tmp.clone
 	rm -rf wave-big-data-visualizer
 	rm -rf wave-apps
 	rm -f wave-aquarium-lab.tar.gz
