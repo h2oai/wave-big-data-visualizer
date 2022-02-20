@@ -1,6 +1,7 @@
-all: build
+.PHONY: all
+all: ami
 
-WBDV_VERSION = tomk-lab
+WBDV_VERSION = wave-aquarium-lab
 
 wave-big-data-visualizer:
 	(mkdir tmp.clone && \
@@ -18,9 +19,21 @@ wave-apps:
 	cp -rp tmp.clone/wave-apps .
 	rm -rf tmp.clone
 
-build: wave-big-data-visualizer wave-apps
-	docker build . -t wave-lab
+.PHONY: docker-image
+docker-image: wave-big-data-visualizer wave-apps
+	docker build . -t wave-aquarium-lab
 
+wave-aquarium-lab.tar.gz: docker-image
+	docker save wave-aquarium-lab | pigz > $@.tmp
+	mv $@.tmp $@
+
+.PHONY: ami
+ami: wave-aquarium-lab.tar.gz
+	packer build .
+
+.PHONY: clean
 clean:
+	-docker rmi wave-aquarium-lab
 	rm -rf wave-big-data-visualizer
 	rm -rf wave-apps
+	rm -f wave-aquarium-lab.tar.gz

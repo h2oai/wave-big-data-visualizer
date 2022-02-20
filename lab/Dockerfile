@@ -31,4 +31,4 @@ COPY wave-apps /root/wave-apps
 
 RUN cd /root/wave-big-data-visualizer && pip3 install -r requirements.txt
 
-ENTRYPOINT code-server
+ENTRYPOINT ["code-server"]
