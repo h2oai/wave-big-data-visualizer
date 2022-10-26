@@ -1,7 +1,7 @@
 .PHONY: all
 all: ami
 
-WBDV_VERSION = tomk-lab
+WBDV_VERSION = whiting-lab
 
 wave-big-data-visualizer:
 	(mkdir tmp.clone && \

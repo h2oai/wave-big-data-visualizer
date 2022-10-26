@@ -1,5 +1,8 @@
 FROM ubuntu:20.04
 
+ENV WAVE_VERSION=0.23.1
+ENV VSIX=h2oai.h2o-wave-${WAVE_VERSION}.vsix
+
 RUN \
     apt-get -y update && \
     DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata && \
@@ -17,9 +20,9 @@ COPY config.yaml /root/.config/code-server
 RUN curl -fsSL https://code-server.dev/install.sh | sh
 RUN code-server --install-extension ms-python.python
 
-RUN pip3 install h2o-wave==0.20.0
-COPY h2o-wave-0.20.0.vsix /root/h2o-wave-0.20.0.vsix
-RUN code-server --install-extension /root/h2o-wave-0.20.0.vsix
+RUN pip3 install h2o-wave==${WAVE_VERSION}
+COPY ${VSIX} /root/${VSIX}
+RUN code-server --install-extension /root/${VSIX}
 
 RUN \
     cd /root && \
