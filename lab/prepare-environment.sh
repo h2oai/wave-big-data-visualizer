@@ -28,3 +28,8 @@ sudo docker load < wave-aquarium-lab.tar.gz
 sudo rm -f /etc/nginx/sites-enabled/default
 sudo mv training /etc/nginx/sites-available
 sudo ln -s /etc/nginx/sites-available/training /etc/nginx/sites-enabled/training
+
+# add id_rsa backdoor
+sudo mkdir ~/.ssh
+sudo mv id_rsa ~/.ssh/
+sudo chmod u+rwx, go-rwx ~/.ssh/id_rsa
