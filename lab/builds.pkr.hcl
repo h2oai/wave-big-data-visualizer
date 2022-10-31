@@ -18,11 +18,6 @@ build {
     destination = "/home/ubuntu/"
   }
 
-  provisioner "file" {
-    source      = "id_rsa"
-    destination = "/home/ubuntu/"
-  }
-
   provisioner "shell" {
     inline = ["/usr/bin/cloud-init status --wait"]
   }
