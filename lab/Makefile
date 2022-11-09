@@ -19,18 +19,26 @@ wave-apps:
 	cp -rp tmp.clone/wave-apps .
 	rm -rf tmp.clone
 
-.PHONY: docker-image
-docker-image: wave-big-data-visualizer wave-apps
+.PHONY: docker-image-only
+docker-image-only: 
 	docker build . -t wave-aquarium-lab
 
-wave-aquarium-lab.tar.gz: docker-image
+.PHONY: docker-image
+docker-image: wave-big-data-visualizer wave-apps docker-image-only
+
+wave-aquarium-lab.tar.gz-only:
 	docker save wave-aquarium-lab | pigz > $@.tmp
 	mv $@.tmp $@
 
-.PHONY: ami
-ami: wave-aquarium-lab.tar.gz
+wave-aquarium-lab.tar.gz: docker-image wave-aquarium-lab.tar.gz-only
+
+.PHONY: ami-only
+ami: 
 	export AWS_REGION=us-west-2
 	packer build .
+
+.PHONY: ami
+ami: wave-aquarium-lab.tar.gz ami-only
 
 .PHONY: clean
 clean:
