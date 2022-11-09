@@ -29,6 +29,7 @@ wave-aquarium-lab.tar.gz: docker-image
 
 .PHONY: ami
 ami: wave-aquarium-lab.tar.gz
+	export AWS_REGION=us-west-2
 	packer build .
 
 .PHONY: clean
