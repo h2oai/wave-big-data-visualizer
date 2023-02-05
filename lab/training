@@ -24,6 +24,39 @@ server {
       proxy_pass http://localhost:10101/;
     }
 
+    # Add a path for demo
+    location /demo/ {
+      proxy_set_header Host $host;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection upgrade;
+      proxy_set_header Accept-Encoding gzip;
+      proxy_read_timeout 20d;
+
+      proxy_pass http://localhost:10101/demo/;
+    }
+
+    # Add a path for training
+    location /training/ {
+      proxy_set_header Host $host;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection upgrade;
+      proxy_set_header Accept-Encoding gzip;
+      proxy_read_timeout 20d;
+
+      proxy_pass http://localhost:10101/training/;
+    }
+
+    # Add a path for university
+    location /university/ {
+      proxy_set_header Host $host;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection upgrade;
+      proxy_set_header Accept-Encoding gzip;
+      proxy_read_timeout 20d;
+
+      proxy_pass http://localhost:10101/university/;
+    }
+
     # Only the vscode-specific stuff goes to vscode.
     location /vscode/ {
       proxy_set_header Host $host;
