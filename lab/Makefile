@@ -1,6 +1,3 @@
-.PHONY: all
-all: ami
-
 WBDV_VERSION = whiting-lab
 
 wave-big-data-visualizer:
@@ -19,22 +16,33 @@ wave-apps:
 	cp -rp tmp.clone/wave-apps .
 	rm -rf tmp.clone
 
-.PHONY: docker-image
-docker-image: wave-big-data-visualizer wave-apps
+.PHONY: docker-image-only
+docker-image-only: 
 	docker build . -t wave-aquarium-lab
 
-wave-aquarium-lab.tar.gz: docker-image
+.PHONY: docker-image
+docker-image: wave-big-data-visualizer wave-apps docker-image-only
+
+.PHONY: wave-aquarium-lab.tar.gz
+wave-aquarium-lab.tar.gz:
 	docker save wave-aquarium-lab | pigz > $@.tmp
 	mv $@.tmp $@
 
 .PHONY: ami
-ami: wave-aquarium-lab.tar.gz
-	packer build .
+ami: 
+	export AWS_REGION=us-west-2; packer build .
+
+.PHONY: all
+all: docker-image wave-aquarium-lab.tar.gz ami
 
 .PHONY: clean
 clean:
-	-docker rmi wave-aquarium-lab
 	rm -rf tmp.clone
 	rm -rf wave-big-data-visualizer
 	rm -rf wave-apps
 	rm -f wave-aquarium-lab.tar.gz
+
+.PHONY: clean-all
+clean-all: clean
+	-docker rmi wave-aquarium-lab
+	
